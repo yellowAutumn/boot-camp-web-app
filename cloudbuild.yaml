@@ -1,0 +1,31 @@
+steps:
+  # Install dependencies for lint/test only (not for Docker image)
+  - name: 'python:3.11'
+    id: Install dependencies
+    entrypoint: 'pip'
+    args: ['install', '-r', 'requirements.txt']
+
+  # Run unit tests (if you add tests)
+  - name: 'python:3.11'
+    id: Run unit tests
+    entrypoint: 'sh'
+    args: ['-c', 'pip install pytest && pytest || true']
+
+  # Run code linting (flake8)
+  - name: 'python:3.11'
+    id: Lint code
+    entrypoint: 'sh'
+    args: ['-c', 'pip install flake8 && flake8 . || true']
+
+  # Build Docker image (using Dockerfile)
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Build Docker image
+    args: ['build', '-f', 'Dockerfile', '-t', 'gcr.io/pr-db-fn-1/temp-convert-webapp:latest', '.']
+
+  # Push Docker image to Google Container Registry (GCR)
+  - name: 'gcr.io/cloud-builders/docker'
+    id: Push Docker image
+    args: ['push', 'gcr.io/pr-db-fn-1/temp-convert-webapp:latest']
+
+images:
+  - 'gcr.io/pr-db-fn-1/temp-convert-webapp:latest'

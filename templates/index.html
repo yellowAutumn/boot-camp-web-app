@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask App</title>
+</head>
+<body>
+    <h1>Fahrenheit to Celsius Converter</h1>
+    <form method="post">
+        <label for="fahrenheit">Fahrenheit (-100 to 100):</label>
+        <input step="any" name="fahrenheit" id="fahrenheit" required min="-100" max="100" value="{{ fahrenheit if fahrenheit is not none else '' }}">
+        <button type="submit">Convert</button>
+    </form>
+    {% if celsius is not none %}
+        <p>Result: <strong>{{ fahrenheit }}</strong> °F = <strong>{{ celsius }}</strong> °C</p>
+    {% endif %}
+</body>
+</html>
