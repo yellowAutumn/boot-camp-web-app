@@ -16,11 +16,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose port (Cloud Run default)
-EXPOSE 8080
+EXPOSE 5000
 
 # Set environment variable for Flask
-ENV PORT=8080
+ENV PORT=5000
 ENV FLASK_APP=app.py
 
 # Run the Flask app
-CMD ["gunicorn", "-b", ":8080", "app:app"]
+CMD ["gunicorn", "-b", ":5000", "app:app"]
