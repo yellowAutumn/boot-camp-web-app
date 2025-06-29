@@ -27,5 +27,8 @@ steps:
     id: Push Docker image
     args: ['push', 'gcr.io/pr-db-fn-1/temp-convert-webapp:latest']
 
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 images:
   - 'gcr.io/pr-db-fn-1/temp-convert-webapp:latest'
